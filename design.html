@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>平台设计 - 古村文旅数字化平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --light-color: #FAF3E0;
+            --dark-color: #5D4037;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray: #9E9E9E;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+        
+        .logo-text {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        /* 页面头部 */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-color);
+            opacity: 1;
+        }
+        
+        .breadcrumb span {
+            margin: 0 10px;
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 网站风格区域 */
+        .website-style {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .style-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .style-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .style-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .style-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .style-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        /* 平台原理区域 */
+        .platform-principle {
+            padding: 80px 0;
+            background-color: var(--gray-light);
+        }
+        
+        .principle-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .principle-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .principle-tab {
+            padding: 12px 25px;
+            background-color: var(--white);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .principle-tab.active, .principle-tab:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        .principle-content {
+            display: none;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            box-shadow: var(--shadow);
+        }
+        
+        .principle-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tech-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tech-feature:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .tech-icon {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+        
+        /* 页面设计区域 */
+        .page-design {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .design-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .design-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .design-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .design-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--primary-color);
+        }
+        
+        .design-number {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #DDD;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #BBB;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 0;
+            }
+            
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .principle-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .principle-tab {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .principle-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="logo-icon fas fa-mountain-city"></i>
+                    <span class="logo-text">古村文旅平台</span>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">项目理念</a></li>
+                        <li><a href="platform.html">平台概述</a></li>
+                        <li><a href="case.html">平台案例</a></li>
+                        <li><a href="design.html" class="active">平台设计</a></li>
+                        <li><a href="functions.html">功能系统</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <div class="container">
+            <h1>平台设计</h1>
+            <p>立足于平台旨在实现传统古村与社会盈利性组织、文旅消费者、当地农民以及政府之间有效联结的目标，以开发古村理念蕴含的巨大潜力为核心的平台形象</p>
+            <div class="breadcrumb">
+                <a href="index.html">首页</a>
+                <span>/</span>
+                <span>平台设计</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 网站风格区域 -->
+    <section class="website-style">
+        <div class="container">
+            <h2 class="section-title">网站风格设计</h2>
+            <p style="text-align: center; max-width: 900px; margin: 0 auto 40px; font-size: 1.1rem;">
+                总体印象立足于平台旨在实现传统古村与社会盈利性组织、文旅消费者、当地农民以及政府之间有效联结的目标，以开发古村理念蕴含的巨大潜力为核心的平台形象，主题突出，内容精干，形式简洁。
+            </p>
+            
+            <div class="style-container">
+                <div class="style-card">
+                    <i class="style-icon fas fa-palette"></i>
+                    <h3>色彩运用</h3>
+                    <p>以淡雅白色为主色调，总体呈大气、简洁、中国风的特征;呈现休闲云游的主题特征；突出千载古村的生活气息。</p>
+                </div>
+                
+                <div class="style-card">
+                    <i class="style-icon fas fa-layer-group"></i>
+                    <h3>版式布局</h3>
+                    <p>栏目集中，分栏目检索明确，导航标志清晰。在结构上，运用统一的通用信息规划，使网站始终保持一种方便快捷、清晰明确的浏览路线。</p>
+                </div>
+                
+                <div class="style-card">
+                    <i class="style-icon fas fa-images"></i>
+                    <h3>图片运用</h3>
+                    <p>配合文字图片，以生动的动画效果表达平台的决心和创造力。使用高质量的古村景观、文化元素和用户体验图片，增强视觉吸引力。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 平台原理区域 -->
+    <section class="platform-principle">
+        <div class="container">
+            <h2 class="section-title">平台技术原理</h2>
+            
+            <div class="principle-tabs">
+                <div class="principle-tab active" data-tab="overview">
+                    <i class="fas fa-server"></i>
+                    技术架构概述
+                </div>
+                <div class="principle-tab" data-tab="centos">
+                    <i class="fab fa-linux"></i>
+                    CentOS系统
+                </div>
+                <div class="principle-tab" data-tab="mysql">
+                    <i class="fas fa-database"></i>
+                    MySQL数据库
+                </div>
+                <div class="principle-tab" data-tab="php">
+                    <i class="fab fa-php"></i>
+                    PHP语言
+                </div>
+                <div class="principle-tab" data-tab="chanzhi">
+                    <i class="fas fa-cogs"></i>
+                    蝉知建站系统
+                </div>
+            </div>
+            
+            <!-- 技术架构概述 -->
+            <div class="principle-content active" id="overview-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-server" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">平台技术架构概述</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    平台选择采用华为云的弹性云服务器，搭载开源的CentOS7.6操作系统、MySQL5.6、PHP7.0以及蝉知建站系统，网页制作的核心整体使用静态页技术，并对网页设计所涉及到JS、CSS文件及PHP、Html页面做了极大的修改，使之适配主流PC浏览器和绝大多数移动端浏览器，并深刻凸显了平台的链接作用和电子商务的媒介作用、载体作用。
+                </p>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-cloud"></i>
+                    <div>
+                        <h4>华为云弹性云服务器</h4>
+                        <p>采用华为云弹性云服务器作为基础设施，提供高性能、高可靠性的计算资源，支持弹性扩展，满足平台不同阶段的业务需求。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-mobile-alt"></i>
+                    <div>
+                        <h4>多端适配</h4>
+                        <p>网页设计适配主流PC浏览器和绝大多数移动端浏览器，确保用户在不同设备上都能获得良好的使用体验。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-bolt"></i>
+                    <div>
+                        <h4>高性能优化</h4>
+                        <p>对JS、CSS文件及PHP、Html页面做了极大的修改和优化，提升页面加载速度和用户体验，深刻凸显平台的链接作用和电子商务的媒介作用。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CentOS系统 -->
+            <div class="principle-content" id="centos-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fab fa-linux" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">CentOS 7.6 操作系统</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    CentOS是免费的、开源的、可以重新分发的开源操作系统，CentOS（Community Enterprise Operating System，中文意思是社区企业操作系统）是Linux发行版之一。CentOS Linux发行版是一个稳定的，可预测的，可管理的和可复现的平台，源于Red Hat Enterprise Linux（RHEL）依照开放源代码规定释出的源码所编译而成。
+                </p>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-shield-alt"></i>
+                    <div>
+                        <h4>稳定可靠</h4>
+                        <p>CentOS以其出色的稳定性和安全性著称，特别适合企业级应用和服务器环境，确保平台7x24小时稳定运行。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-cogs"></i>
+                    <div>
+                        <h4>强大功能</h4>
+                        <p>CentOS7包含诸多新特性：身份管理、性能管理、虚拟化支持、XFS文件系统、网络管理和服务管理，为平台提供强大的技术支撑。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-sync-alt"></i>
+                    <div>
+                        <h4>持续更新</h4>
+                        <p>自2004年3月以来，CentOS Linux一直是社区驱动的开源项目，旨在与RHEL在功能上兼容，持续获得安全更新和技术支持。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MySQL数据库 -->
+            <div class="principle-content" id="mysql-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-database" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">MySQL 5.6 数据库</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，属于Oracle旗下产品。MySQL是最流行的关系型数据库管理系统之一，在WEB应用方面，MySQL是最好的RDBMS(关系数据库管理系统)应用软件之一。MySQL软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择MySQL作为网站数据库。
+                </p>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-bolt"></i>
+                    <div>
+                        <h4>高性能</h4>
+                        <p>MySQL以其出色的性能和速度著称，能够快速处理大量数据请求，满足平台高并发访问的需求。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-expand-arrows-alt"></i>
+                    <div>
+                        <h4>可扩展性</h4>
+                        <p>MySQL支持大规模数据存储和处理，可以通过主从复制、分片等技术实现水平扩展，适应平台业务增长需求。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-lock"></i>
+                    <div>
+                        <h4>安全性</h4>
+                        <p>MySQL提供完善的用户权限管理、数据加密和访问控制机制，确保平台数据的安全性和完整性。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PHP语言 -->
+            <div class="principle-content" id="php-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fab fa-php" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">PHP 7.0 编程语言</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    PHP是一个拥有众多开发者的开源软件项目，最开始是Personal Home Page的缩写，已经正式更名为"PHP:Hypertext Preprocessor"。PHP是在1994年由Rasmus Lerdorf创建的，PHP7.0对比PHP5.6性能整整提升了2倍。本平台采用的便是最常见也是最稳定的php-fpm编程模式。
+                </p>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-rocket"></i>
+                    <div>
+                        <h4>高性能</h4>
+                        <p>PHP7通过优化Zval数据结构、改进数组存储和函数调用机制，性能比PHP5.6提升2倍，大幅提升平台响应速度。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-code"></i>
+                    <div>
+                        <h4>现代特性</h4>
+                        <p>PHP7引入了严格模式开关、改进的错误处理机制、标量类型声明等现代编程语言特性，提高代码质量和可维护性。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-box-open"></i>
+                    <div>
+                        <h4>丰富生态</h4>
+                        <p>PHP拥有庞大的开发者社区和丰富的扩展库，可以快速实现各种功能需求，降低开发成本和维护难度。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 蝉知建站系统 -->
+            <div class="principle-content" id="chanzhi-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-cogs" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">蝉知建站系统</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    蝉知建站系统是一款开源的企业建站系统，采用PHP+MySQL架构，具有强大的内容管理功能和灵活的扩展性。系统安装简单，操作便捷，适合快速搭建企业级网站。
+                </p>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-puzzle-piece"></i>
+                    <div>
+                        <h4>模块化设计</h4>
+                        <p>蝉知系统采用模块化设计，可以灵活添加或删除功能模块，满足平台不同阶段的功能需求变化。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-edit"></i>
+                    <div>
+                        <h4>可视化编辑</h4>
+                        <p>提供可视化页面编辑器和模板管理功能，非技术人员也能轻松管理网站内容和页面布局。</p>
+                    </div>
+                </div>
+                
+                <div class="tech-feature">
+                    <i class="tech-icon fas fa-mobile-alt"></i>
+                    <div>
+                        <h4>响应式设计</h4>
+                        <p>系统内置响应式设计模板，自动适应不同设备屏幕尺寸，确保在PC、平板和手机上都有良好的浏览体验。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页面设计区域 -->
+    <section class="page-design">
+        <div class="container">
+            <h2 class="section-title">页面设计方案</h2>
+            
+            <div class="design-container">
+                <div class="design-card">
+                    <div class="design-number">1</div>
+                    <h3>首页设计</h3>
+                    <p>首页是平台整体形象的浓缩，要进行创意设计。不仅要美观简洁、美观、大气，还要体现平台的形象、主要服务宗旨。在体现平台宗旨的基础上，突出传统古村文化旅游的巨大前景，及开发传统古村旅游模式的必要性和可行性。</p>
+                    <p>设置一个带有特色Logo的首页、充分展示平台形象，并且突显文化特色。各版本各设计一个带片头轮播图的综合功能主页宣传页；主页包括其他页面和子页面的链接、动态发布、信息发布、新闻订阅、游客反馈、网页农文产品搜索、产品购买等功能。</p>
+                </div>
+                
+                <div class="design-card">
+                    <div class="design-number">2</div>
+                    <h3>内页设计</h3>
+                    <p>内页设计追求在风格上统一，但又要因内容不同而各有特色，不同的功能页面又能体现出和功能内容相符的个性风格。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>新闻中心：</strong>行业动态，新闻及政策，用户活动等；大事记，参加政府会议，投资者考察照片及文字,社会投资；平台培训农民相册，各部门的负责事宜记录，文化的展览等。</li>
+                        <li style="margin-bottom: 10px;"><strong>所有产品：</strong>立体排列展示传统古村农产品、工艺品及旅游路线图等的图片和文字信息。</li>
+                        <li style="margin-bottom: 10px;"><strong>关于我们：</strong>介绍平台的组织构架和部门职能(附组织机构图)。</li>
+                    </ul>
+                </div>
+                
+                <div class="design-card">
+                    <div class="design-number">3</div>
+                    <h3>功能页面设计</h3>
+                    <p>平台将设计多种功能页面，满足不同用户群体的需求，提供完整的使用体验。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>产品搜索：</strong>轻松快捷的在产品数据库中搜索所要农文产品及相关信息。</li>
+                        <li style="margin-bottom: 10px;"><strong>村镇服务：</strong>包含平台理念、体系、内容、服务电话，在线QQ、服务网站链接(用户密码进入)。通过留言板或信息提交，获取村民的反馈信息以便即时跟进。</li>
+                        <li style="margin-bottom: 10px;"><strong>网站导航：</strong>描述网站的各项功能，让用户对整个网站结构更清晰，可以第一时间找到所需内容。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于平台</h3>
+                    <p>本项目核心是搭建面向旅游者、合作商、村民及政府景区的需求型文旅数字化服务平台，以"互联网+文旅+数字化技术"为纽带，整合传统古村落旅游资源与民生需求。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">项目理念</a></li>
+                        <li><a href="platform.html">平台概述</a></li>
+                        <li><a href="case.html">平台案例</a></li>
+                        <li><a href="design.html">平台设计</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 江西省抚州市乐安县流坑古村</li>
+                        <li><i class="fas fa-phone"></i> 400-123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@gucun-platform.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>传统古村文旅数字化平台</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+        
+        // 点击菜单项后关闭移动菜单
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+            });
+        });
+        
+        // 技术标签切换
+        const principleTabs = document.querySelectorAll('.principle-tab');
+        const principleContents = document.querySelectorAll('.principle-content');
+        
+        principleTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 移除所有标签的活动状态
+                principleTabs.forEach(t => t.classList.remove('active'));
+                // 添加当前标签的活动状态
+                tab.classList.add('active');
+                
+                // 隐藏所有内容
+                principleContents.forEach(content => content.classList.remove('active'));
+                // 显示对应内容
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目理念 - 古村文旅数字化平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --light-color: #FAF3E0;
+            --dark-color: #5D4037;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray: #9E9E9E;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+        
+        .logo-text {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        /* 页面头部 */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-color);
+            opacity: 1;
+        }
+        
+        .breadcrumb span {
+            margin: 0 10px;
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 核心理念区域 */
+        .core-concept {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .concept-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .concept-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary-color);
+        }
+        
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .concept-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .concept-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        /* 特色区域 */
+        .features {
+            padding: 80px 0;
+            background-color: var(--gray-light);
+        }
+        
+        .feature-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .feature-tab {
+            padding: 12px 25px;
+            background-color: var(--white);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+        
+        .feature-tab.active, .feature-tab:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-content {
+            display: none;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-item i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+        
+        /* 目标区域 */
+        .goals {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-end;
+            padding-right: calc(50% + 30px);
+        }
+        
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-left: calc(50% + 30px);
+        }
+        
+        .timeline-content {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            top: 30px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -40px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -40px;
+        }
+        
+        .timeline-year {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #DDD;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #BBB;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-left: 70px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 0;
+            }
+            
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .feature-content {
+                padding: 30px 20px;
+            }
+            
+            .timeline-content {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="logo-icon fas fa-mountain-city"></i>
+                    <span class="logo-text">古村文旅平台</span>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html" class="active">项目理念</a></li>
+                        <li><a href="platform.html">平台概述</a></li>
+                        <li><a href="case.html">平台案例</a></li>
+                        <li><a href="design.html">平台设计</a></li>
+                        <li><a href="functions.html">功能系统</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <div class="container">
+            <h1>项目理念</h1>
+            <p>以数字化手段打破传统古村旅游资源分散、服务单一、供需脱节、价值转化不足等痛点，实现文化活化、产业赋能、民生改善、多方共赢</p>
+            <div class="breadcrumb">
+                <a href="index.html">首页</a>
+                <span>/</span>
+                <span>项目理念</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心理念区域 -->
+    <section class="core-concept">
+        <div class="container">
+            <h2 class="section-title">项目核心理念</h2>
+            <p style="text-align: center; max-width: 900px; margin: 0 auto 40px; font-size: 1.1rem;">
+                本项目核心是搭建面向旅游者、合作商、村民及政府景区的需求型文旅数字化服务平台，以"互联网+文旅+数字化技术"为纽带，整合传统古村落旅游资源与民生需求，将已开发传统古村落现有的旅游产品拆解为标准化模块，通过数字化资产库、智能匹配、定制化组合的模式，实现路线、商品、研学、体验的多维融合销售。
+            </p>
+            
+            <div class="concept-container">
+                <div class="concept-card">
+                    <i class="concept-icon fas fa-heart"></i>
+                    <h3>文化活化</h3>
+                    <p>通过数字化技术将静态的文化资源转化为动态的文化体验，让千年古村的文化底蕴以现代方式呈现，实现文化传承与创新的有机结合。</p>
+                </div>
+                
+                <div class="concept-card">
+                    <i class="concept-icon fas fa-industry"></i>
+                    <h3>产业赋能</h3>
+                    <p>构建数字化产销对接通道，将村民农产品、手工艺品纳入平台电商模块，激活古村内生生产动力，形成可持续发展的产业生态。</p>
+                </div>
+                
+                <div class="concept-card">
+                    <i class="concept-icon fas fa-users"></i>
+                    <h3>民生改善</h3>
+                    <p>通过专项培训创造多元化就业岗位，提升村民数字化技能，推动就业岗位从基础服务向专业化转型，留住青壮年劳动力。</p>
+                </div>
+                
+                <div class="concept-card">
+                    <i class="concept-icon fas fa-handshake"></i>
+                    <h3>多方共赢</h3>
+                    <p>为游客提供个性化体验，为商家提供精准客源，为村民创造增收机会，为政府优化管理决策，实现各方价值的最大化。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色区域 -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">项目核心特色</h2>
+            
+            <div class="feature-tabs">
+                <div class="feature-tab active" data-tab="c2b">C2B定制模式</div>
+                <div class="feature-tab" data-tab="digital">数字化赋能</div>
+                <div class="feature-tab" data-tab="study">研学认证体系</div>
+                <div class="feature-tab" data-tab="data">大数据匹配</div>
+            </div>
+            
+            <div class="feature-content active" id="c2b-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-puzzle-piece" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">C2B模块化定制模式</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    突破传统固定路线模式，构建通用型标准化模块、预制主题路线、自由混搭组合三位一体的C2B定制体系，实现需求与资源的精准匹配。
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-th-large"></i>
+                        <div>
+                            <h4>模块化资源拆解</h4>
+                            <p>将古村文旅资源拆解为民俗体验、生态休闲、手工实践、文化研学、亲子互动等多元化标准化模块。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <h4>双轨模式选择</h4>
+                            <p>构建"预制路线+个性混搭"双轨模式，游客可在固定主题路线基础上自由替换、添加模块。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-user-cog"></i>
+                        <div>
+                            <h4>个性化行程定制</h4>
+                            <p>支持游客自主挑选模块、调整游览顺序与时长，实现专属行程定制，满足个性化需求。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-bolt"></i>
+                        <div>
+                            <h4>降低决策成本</h4>
+                            <p>通过标准化模块和智能推荐，大幅降低游客行程规划的时间成本和决策难度。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-content" id="digital-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-database" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">文化资源数字化赋能</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    搭建包含实体资源数字化、沉浸式体验素材、动态数据资源的三维文化资源数字化资产库，让文化资源可感可触。
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-cube"></i>
+                        <div>
+                            <h4>实体资源数字化</h4>
+                            <p>整合古建3D模型、非遗技艺视频、科举文献扫描件等静态资源的数字化形态。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-vr-cardboard"></i>
+                        <div>
+                            <h4>沉浸式体验素材</h4>
+                            <p>包含AR/VR场景、3D模型等互动内容，实现线上预览与线下沉浸的双重体验。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <h4>动态数据资源</h4>
+                            <p>涵盖客流、承载量、景观变化等实时信息，为景区管理提供数据支撑。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-eye"></i>
+                        <div>
+                            <h4>双重体验价值</h4>
+                            <p>为游客提供丰富的文化感知，为景区提供动态调控、优化讲解的数据支持。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-content" id="study-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-graduation-cap" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">研学成果量化认证体系</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    构建任务打卡、知识考核、积分积累、证书认证、消费兑换的完整研学链路，破解传统研学成果模糊、体验碎片化的痛点。
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-tasks"></i>
+                        <div>
+                            <h4>任务打卡系统</h4>
+                            <p>游客通过场景打卡、文化知识答题、手工实践等任务获得积分，增强参与感。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-certificate"></i>
+                        <div>
+                            <h4>电子证书认证</h4>
+                            <p>完成研学任务后获得电子研学证书，支持自定义下载打印，增加仪式感。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-coins"></i>
+                        <div>
+                            <h4>积分兑换体系</h4>
+                            <p>研学积分可兑换文创产品、体验折扣或农产品，实现学习与消费的有机结合。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-laptop"></i>
+                        <div>
+                            <h4>在线学习模块</h4>
+                            <p>旅行前或旅行中提供在线学习内容，增强现场研学的参与感和互动性。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-content" id="data-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-brain" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">大数据智能匹配机制</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    基于用户画像建模与多维度推荐算法，实现需求与资源的高效适配，优化供需两端效率。
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-user-tag"></i>
+                        <div>
+                            <h4>用户画像构建</h4>
+                            <p>通过基础信息与行为数据形成多标签精准画像，理解用户偏好与需求。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <h4>智能推荐算法</h4>
+                            <p>融合协同过滤与内容推荐技术，向用户智能推送适配的模块、路线与产品。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h4>客流优化调度</h4>
+                            <p>整合实时客流数据，向游客推送错峰游览建议，平衡设施承载与游览舒适度。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-cogs"></i>
+                        <div>
+                            <h4>供需效率提升</h4>
+                            <p>降低用户决策成本，优化景区资源使用效率，提升供需两端运营效能。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 目标区域 -->
+    <section class="goals">
+        <div class="container">
+            <h2 class="section-title">平台发展目标</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">短期目标 (1-2年)</span>
+                        <h3>搭建基础，培育人才</h3>
+                        <p>搭建文化资源数字化资产库，上线C2B模块化定制与研学认证体系。开展服务标准化培训，培育50名以上数字化服务人才。实现年游客预约量10万人次，研学认证用户占比超30%。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">中期目标 (3-5年)</span>
+                        <h3>完善功能，形成产业链</h3>
+                        <p>完善智能推荐算法与VR全景漫游、AI讲解功能，将五大主题路线打造成区域文旅IP。年游客预约量增至30万人次，带动村民人均增收1.5万元以上，形成"体验、消费再到传承"的成熟产业链。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">长期目标 (5年以上)</span>
+                        <h3>模式输出，可持续发展</h3>
+                        <p>输出可复制的古村文旅数字化转型模式与标准，助力行业整体提质。通过平台盈利反哺古建筑修缮、非遗传承与乡村基础设施完善，推动生态保护与旅游发展良性互动，实现经济与社会效益统一。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于平台</h3>
+                    <p>本项目核心是搭建面向旅游者、合作商、村民及政府景区的需求型文旅数字化服务平台，以"互联网+文旅+数字化技术"为纽带，整合传统古村落旅游资源与民生需求。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">项目理念</a></li>
+                        <li><a href="platform.html">平台概述</a></li>
+                        <li><a href="case.html">平台案例</a></li>
+                        <li><a href="design.html">平台设计</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 江西省抚州市乐安县流坑古村</li>
+                        <li><i class="fas fa-phone"></i> 400-123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@gucun-platform.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>传统古村文旅数字化平台</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+        
+        // 点击菜单项后关闭移动菜单
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+            });
+        });
+        
+        // 特色标签切换
+        const featureTabs = document.querySelectorAll('.feature-tab');
+        const featureContents = document.querySelectorAll('.feature-content');
+        
+        featureTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 移除所有标签的活动状态
+                featureTabs.forEach(t => t.classList.remove('active'));
+                // 添加当前标签的活动状态
+                tab.classList.add('active');
+                
+                // 隐藏所有内容
+                featureContents.forEach(content => content.classList.remove('active'));
+                // 显示对应内容
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

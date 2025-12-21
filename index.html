@@ -1,11 +1,815 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>挑战杯展示</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古村文旅数字化平台 - 让千年古村"活"起来</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --light-color: #FAF3E0;
+            --dark-color: #5D4037;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray: #9E9E9E;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+        
+        .logo-text {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 特色服务区域 */
+        .services {
+            padding: 80px 0;
+            background-color: var(--gray-light);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        
+        /* 创新机制区域 */
+        .innovations {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .innovations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .innovation-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .innovation-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+        }
+        
+        /* 主题路线区域 */
+        .routes {
+            padding: 80px 0;
+            background-color: var(--gray-light);
+        }
+        
+        .routes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .route-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 768px) {
+            .route-card {
+                flex-direction: row;
+            }
+        }
+        
+        .route-image {
+            flex: 1;
+            min-height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .route-content {
+            flex: 2;
+            padding: 30px;
+        }
+        
+        .route-tag {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .route-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .route-feature {
+            background-color: var(--light-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 平台原理区域 */
+        .platform-tech {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tech-item {
+            background-color: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            width: 180px;
+            transition: var(--transition);
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .tech-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #DDD;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #BBB;
+        }
+        
+        /* 内页样式 */
+        .page-header {
+            background-color: var(--light-color);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .breadcrumb a {
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumb span {
+            margin: 0 10px;
+            color: var(--gray);
+        }
+        
+        .page-content {
+            padding: 60px 0;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .content-block {
+            margin-bottom: 60px;
+        }
+        
+        .content-block h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .content-block h3 {
+            font-size: 1.4rem;
+            margin: 25px 0 15px;
+            color: var(--secondary-color);
+        }
+        
+        .content-block p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .highlight-box {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .feature-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: var(--gray-light);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .case-study {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+        }
+        
+        .route-details {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 0;
+            }
+            
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .route-card {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>挑战杯成果展示</h1>
-  <p>这是我的网页，已通过 GitHub Pages 公网访问。</p>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="logo-icon fas fa-mountain-city"></i>
+                    <span class="logo-text">古村文旅平台</span>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">项目理念</a></li>
+                        <li><a href="platform.html">平台概述</a></li>
+                        <li><a href="case.html">平台案例</a></li>
+                        <li><a href="design.html">平台设计</a></li>
+                        <li><a href="functions.html">功能系统</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首页内容 -->
+    <main id="home">
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="container">
+                <h1>让千年古村"活"起来</h1>
+                <p>以"互联网+文旅+数字化技术"为纽带，整合传统古村落旅游资源与民生需求，实现文化活化、产业赋能、民生改善、多方共赢</p>
+                <a href="about.html" class="btn">了解项目理念</a>
+                <a href="platform.html" class="btn">了解平台概述</a>
+                <a href="case.html" class="btn">了解平台案例</a>
+                <a href="design.html" class="btn">了解平台设计</a>
+                <a href="functions.html" class="btn">了解功能系统</a>
+            </div>
+        </section>
+
+        <!-- 特色服务区域 -->
+        <section class="services">
+            <div class="container">
+                <h2 class="section-title">平台核心服务</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i class="service-icon fas fa-map-marked-alt"></i>
+                        <h3>C2B模块化定制</h3>
+                        <p>将古村文旅资源拆解为标准模块，游客自由拼接专属行程，实现个性化旅游体验</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <i class="service-icon fas fa-vr-cardboard"></i>
+                        <h3>AR/VR沉浸体验</h3>
+                        <p>结合AR/VR技术，实现线上预览与线下沉浸的双重体验，让文化资源可感可触</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <i class="service-icon fas fa-graduation-cap"></i>
+                        <h3>研学成果认证</h3>
+                        <p>构建任务打卡、知识考核、积分认证的完整研学链路，实现游中学、学有证、证可兑</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <i class="service-icon fas fa-hands-helping"></i>
+                        <h3>数字化产销对接</h3>
+                        <p>为村民提供农产品、手工艺品产销对接通道，激活古村内生生产动力</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 创新机制区域 -->
+        <section class="innovations">
+            <div class="container">
+                <h2 class="section-title">平台创新机制</h2>
+                <div class="innovations-grid">
+                    <div class="innovation-card">
+                        <h3><i class="fas fa-puzzle-piece"></i> C2B定制模式</h3>
+                        <p>打破传统固定路线模式，构建"预制路线+个性混搭"双轨模式，游客可自由挑选模块、调整游览顺序，实现专属行程定制。</p>
+                    </div>
+                    
+                    <div class="innovation-card">
+                        <h3><i class="fas fa-database"></i> 文化资源数字化</h3>
+                        <p>搭建三维文化资源数字化资产库，整合古建3D模型、非遗视频、客流数据等核心内容，为游客提供丰富的信息资源。</p>
+                    </div>
+                    
+                    <div class="innovation-card">
+                        <h3><i class="fas fa-certificate"></i> 研学成果量化</h3>
+                        <p>构建"任务打卡、知识考核、实践输出、积分认证、消费兑换"完整链路，破解传统研学成果模糊、体验碎片化问题。</p>
+                    </div>
+                    
+                    <div class="innovation-card">
+                        <h3><i class="fas fa-brain"></i> 大数据智能匹配</h3>
+                        <p>基于用户画像建模与多维度推荐算法，实现需求与资源的高效适配，优化供需两端效率。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主题路线区域 -->
+        <section class="routes">
+            <div class="container">
+                <h2 class="section-title">五大主题路线</h2>
+                <div class="routes-container">
+                    <!-- 路线1 -->
+                    <div class="route-card">
+                        <div class="route-image" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070');"></div>
+                        <div class="route-content">
+                            <span class="route-tag">研学教育</span>
+                            <h3>"金榜题名"科举文化研学线</h3>
+                            <p>解码古代科举制度，感受仕进文化魅力。通过AR技术、角色扮演、手工艺体验等现代手段，让抽象的科举制度变得可感可知。</p>
+                            <div class="route-features">
+                                <span class="route-feature">AR科举考场体验</span>
+                                <span class="route-feature">活字印刷实践</span>
+                                <span class="route-feature">研学答题认证</span>
+                            </div>
+                            <a href="case.html#keju" class="btn">查看详情</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 路线2 -->
+                    <div class="route-card">
+                        <div class="route-image" style="background-image: url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+                        <div class="route-content">
+                            <span class="route-tag">非遗体验</span>
+                            <h3>"匠心传承"非遗体验沉浸线</h3>
+                            <p>深度体验非遗技艺，感知传统民俗生命力。采用日间技艺学习与夜间实景演绎的双时段设计，覆盖吃住行游购娱全要素。</p>
+                            <div class="route-features">
+                                <span class="route-feature">竹编技艺实践</span>
+                                <span class="route-feature">傩舞面具制作</span>
+                                <span class="route-feature">非遗市集互动</span>
+                            </div>
+                            <a href="case.html#feiyi" class="btn">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="case.html" class="btn">查看全部路线</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 平台技术区域 -->
+        <section class="platform-tech">
+            <div class="container">
+                <h2 class="section-title">平台技术架构</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 30px;">平台采用华为云弹性云服务器，搭载CentOS7.6操作系统、MySQL5.6、PHP7.0以及蝉知建站系统，确保平台稳定、高效运行。</p>
+                
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <i class="tech-icon fab fa-linux"></i>
+                        <h3>CentOS 7.6</h3>
+                        <p>稳定可靠的开源操作系统</p>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <i class="tech-icon fas fa-database"></i>
+                        <h3>MySQL 5.6</h3>
+                        <p>高效的关系型数据库</p>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <i class="tech-icon fab fa-php"></i>
+                        <h3>PHP 7.0</h3>
+                        <p>强大的服务器端脚本语言</p>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <i class="tech-icon fas fa-cloud"></i>
+                        <h3>华为云</h3>
+                        <p>弹性云服务器部署</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于平台</h3>
+                    <p>本项目核心是搭建面向旅游者、合作商、村民及政府景区的需求型文旅数字化服务平台，以"互联网+文旅+数字化技术"为纽带，整合传统古村落旅游资源与民生需求。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">项目理念</a></li>
+                        <li><a href="platform.html">平台概述</a></li>
+                        <li><a href="case.html">平台案例</a></li>
+                        <li><a href="design.html">平台设计</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 江西省抚州市乐安县流坑古村</li>
+                        <li><i class="fas fa-phone"></i> 400-123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@gucun-platform.com</li>
+                    </ul>
+                </div>
+                
+            </div>
+            
+            <div class="copyright">
+                <p>传统古村文旅数字化平台</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+        
+        // 点击菜单项后关闭移动菜单
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
