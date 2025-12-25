@@ -128,7 +128,7 @@
         
         /* 页面头部 */
         .page-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://copyright.bdstatic.com/vcg/creative/76d17301c8f17c180749460d322091a2.jpg@wm_1,k_cGljX2JqaHdhdGVyLmpwZw==');
             background-size: cover;
             background-position: center;
             color: var(--white);
@@ -140,15 +140,16 @@
         .page-header h1 {
             font-size: 3rem;
             color: var(--white);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .page-header p {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             max-width: 800px;
             margin: 0 auto 30px;
             opacity: 0.9;
+            font-weight: 300;
         }
         
         .breadcrumb {
@@ -490,7 +491,11 @@
             }
             
             .page-header h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
+            }
+            
+            .page-header p {
+                font-size: 1.2rem;
             }
             
             .section-title {
@@ -526,16 +531,55 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* 新添加的样式 */
+        .feature-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .info-point {
+            background-color: var(--light-color);
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .info-point h4 {
+            color: var(--dark-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
-    <!-- 头部导航 -->
+        <!-- 头部导航 -->
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
                     <i class="logo-icon fas fa-mountain-city"></i>
-                    <span class="logo-text">古村文旅平台</span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="logo-text" style="font-size: 1.2rem; line-height: 1.2;">千年古村、万般风光</span>
+                        <span style="font-family: 'Noto Sans SC', sans-serif; font-weight: 500; font-size: 0.8rem; color: var(--gray); line-height: 1.2; margin-top: 2px;">需求型旅游产品集合销售服务平台</span>
+                    </div>
                 </div>
                 
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -549,7 +593,7 @@
                         <li><a href="platform.html">平台概述</a></li>
                         <li><a href="case.html">平台案例</a></li>
                         <li><a href="design.html">平台设计</a></li>
-                        <li><a href="functions.html" class="active">功能系统</a></li>
+                        <li><a href="functions.html">功能系统</a></li>
                     </ul>
                 </nav>
             </div>
@@ -572,12 +616,12 @@
     <!-- 功能系统区域 -->
     <section class="function-systems">
         <div class="container">
-            <h2 class="section-title">主要功能子系统</h2>
+            <h2 class="section-title">主要功能子系统详解</h2>
             
             <div class="function-tabs">
                 <div class="function-tab active" data-tab="product">
                     <i class="fas fa-box-open"></i>
-                    产品展示系统
+                    产品展示数据
                 </div>
                 <div class="function-tab" data-tab="info">
                     <i class="fas fa-newspaper"></i>
@@ -591,9 +635,21 @@
                     <i class="fas fa-headset"></i>
                     后期服务
                 </div>
+                <div class="function-tab" data-tab="backend">
+                    <i class="fas fa-cogs"></i>
+                    后台支持与管理
+                </div>
+                <div class="function-tab" data-tab="culture">
+                    <i class="fas fa-landmark"></i>
+                    文化宣传
+                </div>
+                <div class="function-tab" data-tab="merchant">
+                    <i class="fas fa-store"></i>
+                    商家入驻
+                </div>
             </div>
             
-            <!-- 产品展示系统 -->
+            <!-- 产品展示数据 -->
             <div class="function-content active" id="product-content">
                 <div style="text-align: center; margin-bottom: 30px;">
                     <i class="fas fa-box-open" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
@@ -605,7 +661,7 @@
                 
                 <div class="function-features">
                     <div class="feature-card">
-                        <h4><i class="feature-icon fas fa-th-large"></i> 分类详细</h4>
+                        <h4><i class="feature-icon fas fa-th-large"></i> 详细分类</h4>
                         <p>将古村文旅产品分为旅游路线、文化体验、手工艺品、农产品、住宿餐饮等详细类别，便于用户快速找到所需信息。</p>
                     </div>
                     
@@ -620,7 +676,7 @@
                     </div>
                     
                     <div class="feature-card">
-                        <h4><i class="feature-icon fas fa-sync-alt"></i> 实时更新</h4>
+                        <h4><i class="feature-icon fas fa-sync-alt"></i> 轻松管理</h4>
                         <p>后台管理系统支持实时更新产品信息、价格、库存状态，确保前端展示内容准确无误。</p>
                     </div>
                 </div>
@@ -633,23 +689,28 @@
                     <h3 style="font-size: 1.8rem;">信息发布系统</h3>
                 </div>
                 <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
-                    用来实现信息发布，媒体报道发布，平台动态，合作交流信息发布。每条信息都有可以附带相关图片，加深渲染效果。重要信息，排序首页——可以人工设置某些资讯放置主页位置主次分明。专业特点，突出时效——每条资讯都基于时间管理，明确表明发布时间。
+                    用来实现信息发布，媒体报道发布，平台动态，合作交流信息发布。每条信息都有可以附带相关图片，加深渲染效果。
                 </p>
+                
+                <div class="info-point">
+                    <h4><i class="fas fa-star"></i> 重要信息，排序首页</h4>
+                    <p>可以人工设置某些资讯放置主页位置主次分明，突出重点信息，引导用户关注。</p>
+                </div>
+                
+                <div class="info-point">
+                    <h4><i class="fas fa-clock"></i> 专业特点，突出时效</h4>
+                    <p>每条资讯都基于时间管理，明确表明发布时间，确保信息时效性，按时间排序展示。</p>
+                </div>
+                
+                <div class="info-point">
+                    <h4><i class="fas fa-share-alt"></i> 信息推荐，便于宣传</h4>
+                    <p>每条资讯后边都有"推荐"功能，便于用户将有关信息保存或传递给别人，加大信息扩散面。</p>
+                </div>
                 
                 <div class="function-features">
                     <div class="feature-card">
-                        <h4><i class="feature-icon fas fa-star"></i> 首页推荐</h4>
-                        <p>管理员可以设置重要资讯在首页显示，支持置顶、轮播图、精选推荐等多种展示方式，突出重点信息。</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <h4><i class="feature-icon fas fa-clock"></i> 时效管理</h4>
-                        <p>每条资讯都明确标注发布时间，系统自动按时间排序，最新资讯优先显示，确保信息时效性。</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <h4><i class="feature-icon fas fa-share-alt"></i> 社交分享</h4>
-                        <p>资讯页面内置社交分享功能，用户可将感兴趣的内容一键分享到微信、微博等社交平台，扩大信息传播范围。</p>
+                        <h4><i class="feature-icon fas fa-camera"></i> 图文结合</h4>
+                        <p>每条信息都可以附带相关图片，图文并茂，加深渲染效果，提升信息吸引力。</p>
                     </div>
                     
                     <div class="feature-card">
@@ -714,8 +775,8 @@
                     </div>
                     
                     <div class="feature-card">
-                        <h4><i class="feature-icon fas fa-user-check"></i> 客户关系管理</h4>
-                        <p>记录客户信息、交易历史、服务记录等，提供个性化服务，提升客户满意度和忠诚度。</p>
+                        <h4><i class="feature-icon fas fa-user-check"></i> 农民反馈</h4>
+                        <p>传统古村农民可以将自己的看法、建议发布到平台上，参与平台建设，反映行业情况。</p>
                     </div>
                     
                     <div class="feature-card">
@@ -724,114 +785,112 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- 后台管理区域 -->
-    <section class="backend-management">
-        <div class="container">
-            <h2 class="section-title">后台支持与管理系统</h2>
-            <p style="text-align: center; max-width: 900px; margin: 0 auto 40px; font-size: 1.1rem;">
-                后台管理是管理人员行使网站管理权，维护网站数据的中心。完善的后台管理能保证网站达到预期效益。网站前台的所有信息来源于后台的管理系统。
-            </p>
             
-            <div class="management-container">
-                <div class="management-feature">
-                    <div class="management-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <div class="management-content">
-                        <h3>权限管理</h3>
-                        <p>建立多级权限管理体系，不同角色的管理人员拥有不同的操作权限，确保平台数据安全和操作规范。支持管理员、编辑、审核员、客服等多种角色配置。</p>
-                    </div>
+            <!-- 后台支持与管理 -->
+            <div class="function-content" id="backend-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-cogs" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">后台支持与管理系统</h3>
                 </div>
-                
-                <div class="management-feature">
-                    <div class="management-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="management-content">
-                        <h3>数据管理</h3>
-                        <p>提供完整的数据管理功能，包括数据录入、修改、删除、备份、恢复等操作。支持批量处理和数据导入导出，提高管理效率。</p>
-                    </div>
-                </div>
-                
-                <div class="management-feature">
-                    <div class="management-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="management-content">
-                        <h3>统计分析</h3>
-                        <p>内置数据统计分析工具，实时监控平台访问量、用户行为、交易数据等关键指标，生成可视化报表，为决策提供数据支持。</p>
-                    </div>
-                </div>
-                
-                <div class="management-feature">
-                    <div class="management-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="management-content">
-                        <h3>安全监控</h3>
-                        <p>建立安全监控机制，实时检测平台安全状态，防范网络攻击和数据泄露。记录所有操作日志，便于追溯和安全审计。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 文化宣传区域 -->
-    <section class="culture-promotion">
-        <div class="container">
-            <h2 class="section-title">文化宣传功能</h2>
-            
-            <div class="promotion-container">
-                <div>
-                    <h3>大力宣传传统古村文化</h3>
-                    <p>挖掘文化内涵，打造文化为主的旅游资源。把握文化旅游的大方向，带动资金流入。通过多种形式宣传古村文化，提升文化影响力。</p>
-                    
-                    <ul style="margin-top: 20px; padding-left: 20px;">
-                        <li style="margin-bottom: 10px;"><strong>文化专栏：</strong>设立文化专栏，系统介绍古村历史、建筑、民俗、非遗等文化内容。</li>
-                        <li style="margin-bottom: 10px;"><strong>数字博物馆：</strong>建立数字博物馆，展示古村文物、文献、老照片等珍贵资料。</li>
-                        <li style="margin-bottom: 10px;"><strong>文化活动：</strong>策划和组织文化讲座、展览、体验活动等，增强文化传播效果。</li>
-                        <li style="margin-bottom: 10px;"><strong>故事讲述：</strong>收集和讲述古村历史故事、人物传说、民俗趣事，让文化更生动有趣。</li>
-                    </ul>
-                </div>
-                
-                <div class="promotion-image">
-                    <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="古村文化">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 商家入驻区域 -->
-    <section class="merchant-entry">
-        <div class="container">
-            <div class="entry-container">
-                <h2 class="section-title">商家入驻功能</h2>
-                <p style="text-align: center; margin-bottom: 40px; font-size: 1.1rem;">
-                    网站会开设专栏允许商家入驻，根据商家主营业务进行分类，主要针对P2B2C,P2C运营的商家。P2B2C的商家，一种通过平台将传统古村的瓜果蔬菜，农副产品，直接销售给饭店酒店，既保证店家原材料来源的绿色无污染，又能刻化商家的品牌形象，或将特色手工艺品出售给精品店或超市，扩大产品销售途径；另一种是平台建立电商系统，将传统古村的农文产品直接展示给所有人；并且吸引其他店铺入驻，陈列他们的相似产品，允许投放广告，为平台盈利。
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    后台管理是管理人员行使网站管理权，维护网站数据的中心。完善的后台管理能保证网站达到预期效益。网站前台的所有信息来源于后台的管理系统。
                 </p>
                 
-                <div class="entry-types">
-                    <div class="entry-type">
-                        <h3>P2B2C模式</h3>
-                        <p>连接古村生产者与商家企业，将农产品、手工艺品直接供应给饭店、酒店、精品店等商业客户，保证原材料绿色无污染，塑造品牌形象。</p>
+                <div class="function-features">
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-user-shield"></i> 权限管理</h4>
+                        <p>建立多级权限管理体系，不同角色的管理人员拥有不同的操作权限，确保平台数据安全和操作规范。</p>
                     </div>
                     
-                    <div class="entry-type">
-                        <h3>P2C模式</h3>
-                        <p>建立直接面向消费者的电商系统，将古村农文产品展示给终端用户，缩短供应链，提高生产者收益。</p>
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-database"></i> 数据维护</h4>
+                        <p>提供完整的数据管理功能，包括数据录入、修改、删除、备份、恢复等操作，确保前台信息准确无误。</p>
                     </div>
                     
-                    <div class="entry-type">
-                        <h3>商家入驻</h3>
-                        <p>吸引相关商家入驻平台，陈列相似或互补产品，形成产品集群效应，丰富平台商品种类，提升用户选择空间。</p>
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-chart-bar"></i> 统计分析</h4>
+                        <p>内置数据统计分析工具，实时监控平台访问量、用户行为、交易数据等关键指标，为决策提供支持。</p>
                     </div>
                     
-                    <div class="entry-type">
-                        <h3>广告投放</h3>
-                        <p>允许商家在平台投放广告，为平台创造额外收入来源，同时帮助商家扩大品牌曝光和产品销售。</p>
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-shield-alt"></i> 安全监控</h4>
+                        <p>建立安全监控机制，实时检测平台安全状态，防范网络攻击和数据泄露，记录所有操作日志。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 文化宣传 -->
+            <div class="function-content" id="culture-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-landmark" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">文化宣传功能</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    大力宣传传统古村文化，挖掘文化内涵，打造文化为主的旅游资源。把握文化旅游的大方向，带动资金流入。
+                </p>
+                
+                <div class="function-features">
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-book"></i> 文化内涵挖掘</h4>
+                        <p>深入挖掘古村历史文化内涵，整理民间故事、传统习俗、历史典故等，打造丰富的文化资源库。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-images"></i> 文化资源展示</h4>
+                        <p>通过图文、视频、VR等多种形式展示古村文化资源，让游客全方位了解古村文化魅力。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-graduation-cap"></i> 文化教育推广</h4>
+                        <p>开展文化讲座、研学活动、非遗体验等文化教育项目，传承和弘扬古村优秀传统文化。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-hand-holding-usd"></i> 文化旅游带动</h4>
+                        <p>以文化为核心打造旅游产品，吸引游客体验古村文化，带动相关产业发展和资金流入。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 商家入驻 -->
+            <div class="function-content" id="merchant-content">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-store" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.8rem;">商家入驻功能</h3>
+                </div>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    网站会开设专栏允许商家入驻，根据商家主营业务进行分类，主要针对P2B2C,P2C运营的商家。
+                </p>
+                
+                <div class="info-point">
+                    <h4><i class="fas fa-truck"></i> P2B2C模式</h4>
+                    <p>通过平台将传统古村的瓜果蔬菜，农副产品，直接销售给饭店酒店，既保证店家原材料来源的绿色无污染，又能刻化商家的品牌形象，或将特色手工艺品出售给精品店或超市，扩大产品销售途径。</p>
+                </div>
+                
+                <div class="info-point">
+                    <h4><i class="fas fa-shopping-cart"></i> P2C模式</h4>
+                    <p>平台建立电商系统，将传统古村的农文产品直接展示给所有人，实现生产者与消费者的直接对接。</p>
+                </div>
+                
+                <div class="info-point">
+                    <h4><i class="fas fa-store-alt"></i> 商家入驻</h4>
+                    <p>吸引其他店铺入驻，陈列他们的相似产品，丰富平台商品种类，形成产品集群效应。</p>
+                </div>
+                
+                <div class="info-point">
+                    <h4><i class="fas fa-ad"></i> 广告投放</h4>
+                    <p>允许商家投放广告，为平台创造额外收入来源，同时帮助商家扩大品牌曝光和产品销售。</p>
+                </div>
+                
+                <div class="function-features" style="margin-top: 40px;">
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-check-circle"></i> 商家分类管理</h4>
+                        <p>根据商家主营业务进行分类管理，便于用户查找和筛选合适的商家。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4><i class="feature-icon fas fa-chart-line"></i> 商家数据分析</h4>
+                        <p>为入驻商家提供销售数据、用户行为等分析报告，帮助商家优化经营策略。</p>
                     </div>
                 </div>
             </div>
